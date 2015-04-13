@@ -24,6 +24,6 @@ HEADERS  += src/ignws.h \
     src/ignserial.h \
     src/ignjson.h
 
-OBJECTS_DIR = ./build
-MOC_DIR = ./build
-DESTDIR = ./bin
+OBJECTS_DIR = ../ignsdk-iot-bin/build
+MOC_DIR = ../ignsdk-iot-bin/build
+DESTDIR = ../ignsdk-iot-bin/bin
