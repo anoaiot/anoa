@@ -1,0 +1,8 @@
+.DS_Store
+ign-iot.pro.user*
+build/
+bin/ignsdk-iot
+bin/ignsdk-iot.app/
+Makefile
+.qmake.stash
+qrc_ign.cpp
