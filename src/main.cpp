@@ -5,6 +5,8 @@
 #include "ignws.h"
 #include "ignwstrans.h"
 #include "ignserial.h"
+#include "ignnetwork.h"
+#include "ignfs.h"
 #include "version.h"
 
 int main(int argc, char *argv[])
@@ -43,6 +45,12 @@ int main(int argc, char *argv[])
 
     ignserial serial;
     channel.registerObject(QStringLiteral("serial"), &serial);
+
+    ignnetwork net;
+    channel.registerObject(QStringLiteral("net"), &net);
+
+    ignfs fs;
+    channel.registerObject(QStringLiteral("fs"), &fs);
 
     return a.exec();
 }

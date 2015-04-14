@@ -17,12 +17,16 @@ TEMPLATE = app
 SOURCES +=  src/main.cpp \
             src/ignws.cpp \
             src/ignwstrans.cpp \
-    src/ignserial.cpp
+    src/ignserial.cpp \
+    src/ignnetwork.cpp \
+    src/ignfs.cpp
 
 HEADERS  += src/ignws.h \
             src/ignwstrans.h \
     src/ignserial.h \
-    src/ignjson.h
+    src/ignjson.h \
+    src/ignnetwork.h \
+    src/ignfs.h
 
 OBJECTS_DIR = ../ignsdk-iot-bin/build
 MOC_DIR = ../ignsdk-iot-bin/build
