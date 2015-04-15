@@ -1,5 +1,5 @@
 .DS_Store
-ign-iot.pro.user*
+ignsdk-iot.pro.user*
 build/
 bin/ignsdk-iot
 bin/ignsdk-iot.app/
