@@ -52,5 +52,7 @@ int main(int argc, char *argv[])
     ignfs fs;
     channel.registerObject(QStringLiteral("fs"), &fs);
 
+    qDebug() << "Server ON : " << net.myIP() << "Port :" << port;
+
     return a.exec();
 }
