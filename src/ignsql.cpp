@@ -1,0 +1,76 @@
+#include "ignsql.h"
+
+ignsql::ignsql(QObject *parent) :
+    QObject(parent){}
+
+bool ignsql::driver(const QVariant &config){
+    QVariantMap conf = json->jsonParser(config).toVariantMap();
+    QString drv = conf["driver"].toString();
+    QString host = conf["hostname"].toString();
+    QString user = conf["username"].toString();
+    QString pass = conf["password"].toString();
+    QString dbase = conf["db"].toString();
+    if(drv == "mysql"){
+        this->db = QSqlDatabase::addDatabase("QMYSQL");
+        this->db.setHostName(host);
+        this->db.setUserName(user);
+        this->db.setPassword(pass);
+        this->db.setDatabaseName(dbase);
+        return this->db.open();
+    }
+    else if (drv == "sqlite2"){
+        this->db = QSqlDatabase::addDatabase("QSQLITE2");
+        this->db.setDatabaseName(dbase);
+        return this->db.open();
+    }
+    else if (drv == "sqlite"){
+        this->db = QSqlDatabase::addDatabase("QSQLITE");
+        this->db.setDatabaseName(dbase);
+        return this->db.open();
+    }
+    else{
+        return false;
+    }
+}
+
+QVariant ignsql::query(const QString &qr){
+    bool status;
+    int size;
+    QVariantList datarec;
+    QVariantMap map;
+    QVariantMap contentmap;
+    QSqlQuery qry(this->db);
+
+    qry.prepare(qr);
+    if(qry.exec()){
+        status = true;
+    }
+    else{
+        status = false;
+        contentmap.insert("error",qry.lastError().text());
+    }
+
+    contentmap.insert("status",status);
+
+    QSqlRecord data = qry.record();
+
+    while (qry.next()) {
+        for(int index = 0; index < data.count(); index++) {
+            QString key = data.fieldName(index);
+            QVariant value = qry.value(index);
+            map.insert(key, value);
+        }
+        datarec << map;
+    }
+
+    contentmap.insert("content",datarec);
+
+    if(qry.size() > 0){
+        size = qry.size();
+        contentmap.insert("size",size);
+    }
+
+    QJsonDocument json_enc = QJsonDocument::fromVariant(contentmap);
+    return json_enc.toVariant();
+}
+

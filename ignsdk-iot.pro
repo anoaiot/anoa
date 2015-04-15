@@ -19,14 +19,16 @@ SOURCES +=  src/main.cpp \
             src/ignwstrans.cpp \
     src/ignserial.cpp \
     src/ignnetwork.cpp \
-    src/ignfs.cpp
+    src/ignfs.cpp \
+    src/ignsql.cpp
 
 HEADERS  += src/ignws.h \
             src/ignwstrans.h \
     src/ignserial.h \
     src/ignjson.h \
     src/ignnetwork.h \
-    src/ignfs.h
+    src/ignfs.h \
+    src/ignsql.h
 
 OBJECTS_DIR = ../ignsdk-iot-bin/build
 MOC_DIR = ../ignsdk-iot-bin/build

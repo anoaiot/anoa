@@ -7,6 +7,7 @@
 #include "ignserial.h"
 #include "ignnetwork.h"
 #include "ignfs.h"
+#include "ignsql.h"
 #include "version.h"
 
 int main(int argc, char *argv[])
@@ -51,6 +52,9 @@ int main(int argc, char *argv[])
 
     ignfs fs;
     channel.registerObject(QStringLiteral("fs"), &fs);
+
+    ignsql sql;
+    channel.registerObject(QStringLiteral("sql"), &sql);
 
     qDebug() << "Server ON : " << net.myIP() << "Port :" << port;
 
