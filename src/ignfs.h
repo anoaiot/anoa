@@ -8,8 +8,6 @@
 #include <QDir>
 #include <QFile>
 #include <QTextStream>
-#include <QFileDialog>
-#include <QTreeView>
 #include <QDirIterator>
 #include <QJsonDocument>
 #include <QJsonObject>

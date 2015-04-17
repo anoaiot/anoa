@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
     cmd_parser.addOption(cmd_version);
     QCommandLineOption cmd_ws(QStringList() << "s" << "websocket", "Setup websocket port","port");
     cmd_parser.addOption(cmd_ws);
-    QCommandLineOption cmd_localhost(QStringList() << "l" << "localhost", "Localhost target");
+    QCommandLineOption cmd_localhost(QStringList() << "l" << "localhost", "Set just 127.0.0.1 target");
     cmd_parser.addOption(cmd_localhost);
     cmd_parser.addHelpOption();
     cmd_parser.process(a);
