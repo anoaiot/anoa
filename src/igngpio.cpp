@@ -34,7 +34,6 @@ bool igngpio::board(const QString name){
 }
 
 bool igngpio::pin(const int &pin){
-    qDebug() << "pin set" << GPIO_MAP[QString::number(pin)].toString();
     if(GPIO_SET_MAP && GPIO_MAP[QString::number(pin)].toString() != ""){
         GPIO_PIN = QString(GPIO_MAP[QString::number(pin)].toString());
     }
@@ -53,4 +52,9 @@ bool igngpio::mode(const QString &mode){
 
 bool igngpio::write(const int &in){
     return fs.fileWrite(GPIO_DIR+"gpio"+GPIO_PIN+"/value",QString::number(in));
+}
+
+void igngpio::unset(){
+    GPIO_PIN = "";
+    GPIO_SET_MAP = false;
 }

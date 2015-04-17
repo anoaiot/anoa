@@ -25,6 +25,7 @@ public slots:
     bool pin(const int &pin);
     bool mode(const QString &mode);
     bool write(const int &in);
+    void unset();
 };
 
 #endif // IGNGPIO_H
