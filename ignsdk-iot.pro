@@ -33,6 +33,6 @@ HEADERS  += src/ignws.h \
     src/version.h \
     src/igngpio.h
 
-OBJECTS_DIR = ../ignsdk-iot-bin/build
-MOC_DIR = ../ignsdk-iot-bin/build
-DESTDIR = ../ignsdk-iot-bin/bin
+OBJECTS_DIR = ./build
+MOC_DIR = ./build
+DESTDIR = ./bin
