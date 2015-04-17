@@ -28,7 +28,8 @@ HEADERS  += src/ignws.h \
     src/ignjson.h \
     src/ignnetwork.h \
     src/ignfs.h \
-    src/ignsql.h
+    src/ignsql.h \
+    src/version.h
 
 OBJECTS_DIR = ../ignsdk-iot-bin/build
 MOC_DIR = ../ignsdk-iot-bin/build

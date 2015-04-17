@@ -16,6 +16,15 @@ int main(int argc, char *argv[])
 
     QWebSocketServer server(QStringLiteral("IGNSDK API"), QWebSocketServer::NonSecureMode);
     int port = 6969;
+    QHostAddress host;
+    QHostAddress localhost = QHostAddress::LocalHost;
+
+    Q_FOREACH(QHostAddress address, QNetworkInterface::allAddresses()) {
+      if (!address.isLoopback() && (address.protocol() == QAbstractSocket::IPv4Protocol)) {
+         host = address;
+         break;
+       }
+    }
 
     QCommandLineParser cmd_parser;
     cmd_parser.setApplicationDescription("IGOS Nusantara Software Development Kit For IoT");
@@ -23,6 +32,8 @@ int main(int argc, char *argv[])
     cmd_parser.addOption(cmd_version);
     QCommandLineOption cmd_ws(QStringList() << "s" << "websocket", "Setup websocket port","port");
     cmd_parser.addOption(cmd_ws);
+    QCommandLineOption cmd_localhost(QStringList() << "l" << "localhost", "Localhost target");
+    cmd_parser.addOption(cmd_localhost);
     cmd_parser.addHelpOption();
     cmd_parser.process(a);
 
@@ -34,10 +45,16 @@ int main(int argc, char *argv[])
     if(cmd_parser.isSet(cmd_ws)){
         port = cmd_parser.value(cmd_ws).toInt();
     }
-    if (!server.listen(QHostAddress::LocalHost, port)) {
+
+    if(cmd_parser.isSet(cmd_localhost)){
+        host = localhost;
+    }
+
+    if (!server.listen(host, port)) {
         qFatal("Failed to open web socket server.");
         return 1;
     }
+
     ignws clientWrapper(&server);
 
     QWebChannel channel;
