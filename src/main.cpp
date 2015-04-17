@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
     igngpio gpio;
     channel.registerObject(QStringLiteral("gpio"), &gpio);
 
-    qDebug() << "Server ON : " << net.myIP() << "Port :" << port;
+    qDebug() << "Server ON : " << host.toString() << "Port :" << port;
 
     return a.exec();
 }
