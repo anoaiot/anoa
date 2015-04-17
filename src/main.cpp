@@ -8,6 +8,7 @@
 #include "ignnetwork.h"
 #include "ignfs.h"
 #include "ignsql.h"
+#include "igngpio.h"
 #include "version.h"
 
 int main(int argc, char *argv[])
@@ -72,6 +73,9 @@ int main(int argc, char *argv[])
 
     ignsql sql;
     channel.registerObject(QStringLiteral("sql"), &sql);
+
+    igngpio gpio;
+    channel.registerObject(QStringLiteral("gpio"), &gpio);
 
     qDebug() << "Server ON : " << net.myIP() << "Port :" << port;
 
