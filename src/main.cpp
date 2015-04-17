@@ -27,13 +27,17 @@ int main(int argc, char *argv[])
        }
     }
 
+    if(host.toString().isEmpty()){
+        host = localhost;
+    }
+
     QCommandLineParser cmd_parser;
     cmd_parser.setApplicationDescription("IGOS Nusantara Software Development Kit For IoT");
     QCommandLineOption cmd_version(QStringList() << "v" << "version", "Show version");
     cmd_parser.addOption(cmd_version);
     QCommandLineOption cmd_ws(QStringList() << "s" << "websocket", "Setup websocket port","port");
     cmd_parser.addOption(cmd_ws);
-    QCommandLineOption cmd_localhost(QStringList() << "l" << "localhost", "Set just 127.0.0.1 target");
+    QCommandLineOption cmd_localhost(QStringList() << "l" << "localhost", "Set localhost target");
     cmd_parser.addOption(cmd_localhost);
     cmd_parser.addHelpOption();
     cmd_parser.process(a);
