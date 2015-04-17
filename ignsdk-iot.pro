@@ -36,3 +36,6 @@ HEADERS  += src/ignws.h \
 OBJECTS_DIR = ./build
 MOC_DIR = ./build
 DESTDIR = ./bin
+
+DISTFILES += \
+    config/rpi2.json
