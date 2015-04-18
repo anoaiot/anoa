@@ -3,7 +3,7 @@
 
 igngpio::igngpio(QObject *parent) :
     QObject(parent),
-    m_fs(0)
+    m_gpio_read(0)
 {
     GPIO_DIR = "/sys/class/gpio/";
     GPIO_EXPORT = "/sys/class/gpio/export";
@@ -58,17 +58,12 @@ bool igngpio::write(const int &in){
 }
 
 QObject *igngpio::read(const int &pin){
-    m_fs = new ignfs;
-    m_fs->fileWatcher(GPIO_DIR+"gpio"+QString::number(pin)+"/value");
-    return m_fs;
-}
-
-void igngpio::unset(){
-    GPIO_PIN = "";
-    GPIO_SET_MAP = false;
-    fs.fileWrite(GPIO_UNEXPORT,GPIO_PIN);
+    m_gpio_read = new igngpioRead(pin);
+    return m_gpio_read;
 }
 
 void igngpio::unset(const int &pin){
-    fs.fileWrite(GPIO_EXPORT,QString::number(pin));
+    GPIO_PIN = "";
+    GPIO_SET_MAP = false;
+    fs.fileWrite(GPIO_UNEXPORT,QString::number(pin));
 }

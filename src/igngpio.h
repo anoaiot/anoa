@@ -5,6 +5,7 @@
 #include <QVariantMap>
 #include <QVariant>
 #include "ignfs.h"
+#include "igngpioRead.h"
 
 class igngpio : public QObject
 {
@@ -19,7 +20,7 @@ public:
     QString GPIO_EXPORT;
     QString GPIO_UNEXPORT;
     ignfs fs;
-    ignfs *m_fs;
+    igngpioRead *m_gpio_read;
 signals:
 
 public slots:
@@ -28,7 +29,6 @@ public slots:
     bool mode(const QString &mode);
     bool write(const int &in);
     QObject *read(const int &pin);
-    void unset();
     void unset(const int &pin);
 };
 

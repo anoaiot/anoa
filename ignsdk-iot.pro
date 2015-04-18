@@ -21,7 +21,8 @@ SOURCES +=  src/main.cpp \
     src/ignnetwork.cpp \
     src/ignfs.cpp \
     src/ignsql.cpp \
-    src/igngpio.cpp
+    src/igngpio.cpp \
+    src/igngpioRead.cpp
 
 HEADERS  += src/ignws.h \
             src/ignwstrans.h \
@@ -31,7 +32,8 @@ HEADERS  += src/ignws.h \
     src/ignfs.h \
     src/ignsql.h \
     src/version.h \
-    src/igngpio.h
+    src/igngpio.h \
+    src/igngpioRead.h
 
 OBJECTS_DIR = ./build
 MOC_DIR = ./build
