@@ -58,7 +58,8 @@ bool igngpio::write(const int &in){
 }
 
 QObject *igngpio::read(const int &pin){
-    m_gpio_read = new igngpioRead(pin);
+    m_gpio_read = new igngpioRead;
+    m_gpio_read->read(pin);
     return m_gpio_read;
 }
 
