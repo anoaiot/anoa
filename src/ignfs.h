@@ -14,6 +14,7 @@
 #include <QJsonArray>
 #include <QJsonParseError>
 #include <QDateTime>
+#include <QFileSystemWatcher>
 #include "ignjson.h"
 
 class ignfs : public QObject
@@ -23,9 +24,10 @@ class ignfs : public QObject
 public:
     ignfs(QObject *parent = 0);
     ignjson *json;
-
+    QFileSystemWatcher stream;
+    //QString PATH_FILE_WATCHER;
 signals:
-
+    void watcher(const QString &value);
 public slots:
     bool rm(const QString& path);
     QString appPath();
@@ -36,6 +38,8 @@ public slots:
     bool copy(const QString &src, const QString &des);
     QStringList list(const QString &path);
     QVariant info(const QString &path);
+    void fileWatcher(const QString &path);
+    void watch(const QString &data);
 };
 
 #endif // IGNFS_H

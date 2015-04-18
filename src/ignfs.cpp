@@ -138,3 +138,19 @@ QVariant ignfs::info(const QString &path){
     QJsonDocument json_enc = QJsonDocument::fromVariant(map);
     return json_enc.toVariant();
 }
+
+
+void ignfs::fileWatcher(const QString &path){
+    QFileInfo file(path);
+    if(file.exists() && file.isFile()){
+        //PATH_FILE_WATCHER = path;
+        stream.addPath(path);
+        connect(&stream,SIGNAL(fileChanged(QString)),this,SLOT(watch(QString)));
+    }
+}
+
+void ignfs::watch(const QString &data){
+    qDebug() << "File changed : " << data;
+    QString val = this->fileRead(data);
+    emit watcher(val);
+}

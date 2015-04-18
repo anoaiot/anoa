@@ -17,7 +17,9 @@ public:
     bool GPIO_SET_MAP;
     QString GPIO_DIR;
     QString GPIO_EXPORT;
+    QString GPIO_UNEXPORT;
     ignfs fs;
+    ignfs *m_fs;
 signals:
 
 public slots:
@@ -25,7 +27,9 @@ public slots:
     bool pin(const int &pin);
     bool mode(const QString &mode);
     bool write(const int &in);
+    QObject *read(const int &pin);
     void unset();
+    void unset(const int &pin);
 };
 
 #endif // IGNGPIO_H

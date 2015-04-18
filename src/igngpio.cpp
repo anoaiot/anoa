@@ -1,10 +1,13 @@
 #include "igngpio.h"
 #include "QDebug"
 
-igngpio::igngpio(QObject *parent) : QObject(parent)
+igngpio::igngpio(QObject *parent) :
+    QObject(parent),
+    m_fs(0)
 {
     GPIO_DIR = "/sys/class/gpio/";
     GPIO_EXPORT = "/sys/class/gpio/export";
+    GPIO_UNEXPORT = "/sys/class/gpio/export";
     GPIO_MAP_DIR = "/etc/ignsdk/board/";
     GPIO_SET_MAP = false;
 }
@@ -54,7 +57,18 @@ bool igngpio::write(const int &in){
     return fs.fileWrite(GPIO_DIR+"gpio"+GPIO_PIN+"/value",QString::number(in));
 }
 
+QObject *igngpio::read(const int &pin){
+    m_fs = new ignfs;
+    m_fs->fileWatcher(GPIO_DIR+"gpio"+QString::number(pin)+"/value");
+    return m_fs;
+}
+
 void igngpio::unset(){
     GPIO_PIN = "";
     GPIO_SET_MAP = false;
+    fs.fileWrite(GPIO_UNEXPORT,GPIO_PIN);
+}
+
+void igngpio::unset(const int &pin){
+    fs.fileWrite(GPIO_EXPORT,QString::number(pin));
 }
