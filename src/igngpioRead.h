@@ -8,7 +8,7 @@ class igngpioRead : public QObject
 {
     Q_OBJECT
 public:
-    explicit igngpioRead(QObject *parent = 0);
+    igngpioRead(QObject *parent = 0);
     ignfs fs;
     QString GPIO_VAL;
 signals:

@@ -7,7 +7,7 @@ igngpio::igngpio(QObject *parent) :
 {
     GPIO_DIR = "/sys/class/gpio/";
     GPIO_EXPORT = "/sys/class/gpio/export";
-    GPIO_UNEXPORT = "/sys/class/gpio/export";
+    GPIO_UNEXPORT = "/sys/class/gpio/unexport";
     GPIO_MAP_DIR = "/etc/ignsdk/board/";
     GPIO_SET_MAP = false;
 }

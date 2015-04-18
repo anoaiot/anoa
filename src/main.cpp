@@ -9,7 +9,6 @@
 #include "ignfs.h"
 #include "ignsql.h"
 #include "igngpio.h"
-#include "igngpioRead.h"
 #include "version.h"
 
 int main(int argc, char *argv[])
@@ -81,9 +80,6 @@ int main(int argc, char *argv[])
 
     igngpio gpio;
     channel.registerObject(QStringLiteral("gpio"), &gpio);
-
-    igngpioRead gpioRead;
-    channel.registerObject(QStringLiteral("gpioRead"), &gpioRead);
 
     qDebug() << "Server ON : " << host.toString() << "Port :" << port;
 

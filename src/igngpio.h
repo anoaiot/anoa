@@ -11,7 +11,7 @@ class igngpio : public QObject
 {
     Q_OBJECT
 public:
-    explicit igngpio(QObject *parent = 0);
+    igngpio(QObject *parent = 0);
     QString GPIO_PIN;
     QVariantMap GPIO_MAP;
     QString GPIO_MAP_DIR;
