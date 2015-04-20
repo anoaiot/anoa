@@ -25,9 +25,10 @@ signals:
 
 public slots:
     bool board(const QString name);
-    bool pin(const int &pin);
+    bool set(const int &pin);
     bool mode(const QString &mode);
-    bool write(const int &in);
+    bool write(const int &pin, const int &in);
+    QString PIN(const int &pin);
     QObject *read(const int &pin);
     void unset(const int &pin);
 };

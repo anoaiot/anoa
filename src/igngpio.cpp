@@ -36,14 +36,18 @@ bool igngpio::board(const QString name){
     return false;
 }
 
-bool igngpio::pin(const int &pin){
+QString igngpio::PIN(const int &pin){
     if(GPIO_SET_MAP && GPIO_MAP[QString::number(pin)].toString() != ""){
         GPIO_PIN = QString(GPIO_MAP[QString::number(pin)].toString());
+        return GPIO_PIN;
     }
-    else{
-        GPIO_PIN = QString::number(pin);
-    }
-    return fs.fileWrite(GPIO_EXPORT,GPIO_PIN);
+    GPIO_PIN = QString::number(pin);
+    return GPIO_PIN;
+}
+
+bool igngpio::set(const int &pin){
+    QString PIN = this->PIN(pin);
+    return fs.fileWrite(GPIO_EXPORT,PIN);
 }
 
 bool igngpio::mode(const QString &mode){
@@ -53,18 +57,23 @@ bool igngpio::mode(const QString &mode){
     return false;
 }
 
-bool igngpio::write(const int &in){
-    return fs.fileWrite(GPIO_DIR+"gpio"+GPIO_PIN+"/value",QString::number(in));
+bool igngpio::write(const int &pin,const int &in){
+    QString PIN = this->PIN(pin);
+    if(in == 1 || in == 0){
+        return fs.fileWrite(GPIO_DIR+"gpio"+PIN+"/value",QString::number(in));
+    }
+    return false;
 }
 
 QObject *igngpio::read(const int &pin){
-    m_gpio_read = new igngpioRead;
-    m_gpio_read->read(pin);
+    QString PIN = this->PIN(pin);
+    m_gpio_read = new igngpioRead(PIN);
     return m_gpio_read;
 }
 
 void igngpio::unset(const int &pin){
+    QString PIN = this->PIN(pin);
     GPIO_PIN = "";
     GPIO_SET_MAP = false;
-    fs.fileWrite(GPIO_UNEXPORT,QString::number(pin));
+    fs.fileWrite(GPIO_UNEXPORT,PIN);
 }

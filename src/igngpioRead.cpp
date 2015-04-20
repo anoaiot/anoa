@@ -1,15 +1,18 @@
 #include "igngpioRead.h"
-#include <QThread>
 
-igngpioRead::igngpioRead(QObject *parent) : QObject(parent){}
+igngpioRead::igngpioRead(const QString &pin, QObject *parent) : QObject(parent){
+    interval = new QTimer(this);
+    GPIO_VAL = "/sys/class/gpio/gpio"+pin+"/value";
+    connect(interval,SIGNAL(timeout()),this,SLOT(read()));
+    interval->start(500);
+}
 
-void igngpioRead::read(const int &pin){
-    GPIO_VAL = "/sys/class/gpio/gpio"+QString::number(pin)+"/value";
+void igngpioRead::read(){
     QFileInfo file(GPIO_VAL);
     if(file.exists()){
-        while(true){
-            emit stream(fs.fileRead(GPIO_VAL));
-            QThread::sleep(500);
-        }
+        emit stream(fs.fileRead(GPIO_VAL));
+    }
+    if(!interval->isActive()){
+        interval->start(500);
     }
 }
