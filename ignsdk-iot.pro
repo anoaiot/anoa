@@ -40,4 +40,5 @@ MOC_DIR = ./build
 DESTDIR = ./bin
 
 DISTFILES += \
-    config/rpi2.json
+    config/rpi2.json \
+    rpm/ignsdk-iot.spec

@@ -15,7 +15,7 @@ ignws::ignws(QWebSocketServer *server, QObject *parent)
 
 void ignws::handleNewConnection()
 {
-    qDebug()<< "handle con";
+    qDebug()<< "Handle new connection, argghhhh argghhh!!";
     emit clientConnected(new ignwstrans(m_server->nextPendingConnection()));
 }
 
