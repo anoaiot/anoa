@@ -1,7 +1,7 @@
 Summary:IGOS Nusantara SDK
 Name:ignsdk-iot
 Version:0.1
-Release:1
+Release:2
 License:BSD
 Group:System Environment/Base
 URL:http://igos-nusantara.or.id
