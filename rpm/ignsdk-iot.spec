@@ -12,6 +12,8 @@ Requires:qt5-qtbase-mysql
 Requires:qt5-qtbase
 Requires:qt5-qtserialport
 Requires:qt5-qtwebsockets
+Requires:nodejs
+Requires:sharkio
 BuildRequires:qt5-qtwebchannel-devel
 BuildRequires:gcc-c++
 BuildRequires:qt5-qtbase-mysql-devel
