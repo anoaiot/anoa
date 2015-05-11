@@ -43,5 +43,7 @@ rm -rf $RPM_BUILD_ROOT
 /etc/ignsdk/board/rpi2.json
 
 %changelog
+* Wed May 11 2015 ibnu yahya <anak10thn@gmail.com>
+- Bump version to 0.1.2
 * Wed Mar 11 2015 ibnu yahya <anak10thn@gmail.com>
 - Bump version to 0.1.1
