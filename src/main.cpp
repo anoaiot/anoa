@@ -2,6 +2,7 @@
 #include <QtWebSockets/QWebSocketServer>
 #include <QCommandLineParser>
 #include <QWebChannel>
+#include <QFileInfo>
 #include "ignws.h"
 #include "ignwstrans.h"
 #include "ignserial.h"
@@ -10,6 +11,8 @@
 #include "ignsql.h"
 #include "igngpio.h"
 #include "igngpioRead.h"
+#include "ignprocess.h"
+#include "ignsystem.h"
 #include "version.h"
 
 int main(int argc, char *argv[])
@@ -34,8 +37,10 @@ int main(int argc, char *argv[])
     cmd_parser.addOption(cmd_version);
     QCommandLineOption cmd_port(QStringList() << "p" << "port", "Setup websocket port","port");
     cmd_parser.addOption(cmd_port);
-    QCommandLineOption cmd_target(QStringList() << "t" << "target", "Set IP target : all,public,<ip address>","target");
+    QCommandLineOption cmd_target(QStringList() << "t" << "target", "Set IP target","all, public, set ip address");
     cmd_parser.addOption(cmd_target);
+    QCommandLineOption cmd_node(QStringList() << "n" << "nodejs", "Execute nodejs script","nodejs script");
+    cmd_parser.addOption(cmd_node);
     cmd_parser.addHelpOption();
     cmd_parser.process(a);
 
@@ -91,7 +96,33 @@ int main(int argc, char *argv[])
     igngpio gpio;
     channel.registerObject(QStringLiteral("gpio"), &gpio);
 
+    ignsystem sys;
+    channel.registerObject(QStringLiteral("sys"), &sys);
+
     qDebug() << "Server ON : " << host.toString() << "Port :" << port;
+
+    ignprocess proc;
+    QList<QString> list;
+    QString NODE_PATH;
+    list << "/usr/bin/node" << "/usr/bin/nodejs" << "/usr/local/bin/node" << "/usr/local/bin/nodejs";
+    if(cmd_parser.isSet(cmd_node)){
+        QString script = cmd_parser.value(cmd_node).toUtf8();
+        Q_FOREACH(QString path, list){
+            QFileInfo node(path);
+            if(node.exists()){
+                NODE_PATH = path;
+                break;
+            }
+        }
+
+        if(NODE_PATH.isEmpty()){
+            qDebug() << "node.js not found!";
+        }
+        else{
+            qDebug() << "Nodejs script : " << script;
+            proc.nodeExec(NODE_PATH+" "+script);
+        }
+    }
 
     return a.exec();
 }
