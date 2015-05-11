@@ -18,28 +18,24 @@ int main(int argc, char *argv[])
 
     QWebSocketServer server(QStringLiteral("IGNSDK API"), QWebSocketServer::NonSecureMode);
     int port = 6969;
-    QHostAddress host;
+    QHostAddress host,publichost;
     QHostAddress localhost = QHostAddress::LocalHost;
 
     Q_FOREACH(QHostAddress address, QNetworkInterface::allAddresses()) {
       if (!address.isLoopback() && (address.protocol() == QAbstractSocket::IPv4Protocol)) {
-         host = address;
+         publichost = address;
          break;
        }
-    }
-
-    if(host.toString().isEmpty()){
-        host = localhost;
     }
 
     QCommandLineParser cmd_parser;
     cmd_parser.setApplicationDescription("IGOS Nusantara Software Development Kit For IoT");
     QCommandLineOption cmd_version(QStringList() << "v" << "version", "Show version");
     cmd_parser.addOption(cmd_version);
-    QCommandLineOption cmd_ws(QStringList() << "s" << "websocket", "Setup websocket port","port");
-    cmd_parser.addOption(cmd_ws);
-    QCommandLineOption cmd_localhost(QStringList() << "l" << "localhost", "Set localhost target");
-    cmd_parser.addOption(cmd_localhost);
+    QCommandLineOption cmd_port(QStringList() << "p" << "port", "Setup websocket port","port");
+    cmd_parser.addOption(cmd_port);
+    QCommandLineOption cmd_target(QStringList() << "t" << "target", "Set IP target : all,public,<ip address>","target");
+    cmd_parser.addOption(cmd_target);
     cmd_parser.addHelpOption();
     cmd_parser.process(a);
 
@@ -48,11 +44,24 @@ int main(int argc, char *argv[])
         exit(0);
     }
 
-    if(cmd_parser.isSet(cmd_ws)){
-        port = cmd_parser.value(cmd_ws).toInt();
+    if(cmd_parser.isSet(cmd_port)){
+        port = cmd_parser.value(cmd_port).toInt();
     }
 
-    if(cmd_parser.isSet(cmd_localhost)){
+    if(cmd_parser.isSet(cmd_target)){
+        QString opt = cmd_parser.value(cmd_target).toUtf8();
+        if(opt == "all"){
+            host = QHostAddress("0.0.0.0");
+        }
+        else if(opt == "public"){
+            host = publichost;
+        }
+        else{
+            host = opt;
+        }
+    }
+
+    if(host.toString().isEmpty()){
         host = localhost;
     }
 

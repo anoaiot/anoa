@@ -1,7 +1,7 @@
 Summary:IGOS Nusantara SDK
 Name:ignsdk-iot
 Version:0.1
-Release:1
+Release:2
 License:BSD
 Group:System Environment/Base
 URL:http://igos-nusantara.or.id
@@ -12,6 +12,8 @@ Requires:qt5-qtbase-mysql
 Requires:qt5-qtbase
 Requires:qt5-qtserialport
 Requires:qt5-qtwebsockets
+Requires:nodejs
+Requires:sharkio
 BuildRequires:qt5-qtwebchannel-devel
 BuildRequires:gcc-c++
 BuildRequires:qt5-qtbase-mysql-devel
