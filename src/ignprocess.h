@@ -20,6 +20,7 @@ public slots:
     void _out();
     void nodeOut();
     void kill();
+    void write(const QString &str);
     int pid();
 };
 
