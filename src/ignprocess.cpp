@@ -8,10 +8,10 @@ ignprocess::ignprocess(QObject *parent) :
 }
 
 void ignprocess::exec(const QString &cli){
-    proc.setReadChannelMode(QProcess::MergedChannels);
+    proc.setProcessChannelMode(QProcess::MergedChannels);
     connect( &proc, SIGNAL(readyReadStandardOutput()), this, SLOT( _out()) );
     connect( &proc, SIGNAL(readyReadStandardError()), this, SLOT( _out()) );
-    proc.start(cli);
+    proc.start(cli,QStringList(), QIODevice::ReadWrite | QIODevice::Text );
 }
 
 void ignprocess::nodeExec(const QString &cli){
@@ -43,4 +43,9 @@ void ignprocess::kill(){
 
 int ignprocess::pid(){
     return this->proc.pid();
+}
+
+void ignprocess::write(const QString &str){
+    QByteArray data(str.toStdString().c_str());
+    qDebug() << "Write " << this->proc.write(data) << "byte data";
 }
