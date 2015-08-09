@@ -11,7 +11,8 @@ void ignprocess::exec(const QString &cli){
     proc.setProcessChannelMode(QProcess::MergedChannels);
     connect( &proc, SIGNAL(readyReadStandardOutput()), this, SLOT( _out()) );
     connect( &proc, SIGNAL(readyReadStandardError()), this, SLOT( _out()) );
-    proc.start(cli,QStringList(), QIODevice::ReadWrite | QIODevice::Text );
+    //proc.start(cli,QStringList(), QIODevice::ReadWrite | QIODevice::Text );
+    proc.start(cli,QIODevice::ReadWrite | QIODevice::Text );
 }
 
 void ignprocess::nodeExec(const QString &cli){
