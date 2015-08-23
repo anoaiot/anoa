@@ -1,7 +1,7 @@
 Summary:IGOS Nusantara SDK
 Name:ignsdk-iot
 Version:0.1
-Release:3
+Release:4
 License:BSD
 Group:System Environment/Base
 URL:http://igos-nusantara.or.id
@@ -43,6 +43,9 @@ rm -rf $RPM_BUILD_ROOT
 /etc/ignsdk/board/rpi2.json
 
 %changelog
+* Mon Aug 24 2015 ibnu yahya <anak10thn@gmail.com>
+- Bump version to 0.1.4
+- Fix bugs stdin
 * Tue Jun 16 2015 ibnu yahya <anak10thn@gmail.com>
 - Bump version to 0.1.3
 * Wed May 11 2015 ibnu yahya <anak10thn@gmail.com>

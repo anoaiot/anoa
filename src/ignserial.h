@@ -16,11 +16,11 @@ public:
     explicit ignserial(QObject *parent = 0);
     ignjson *json;
     QSerialPort read;
-    QTimer time;
+    QTimer *time;
 
 public slots:
     QVariant info();
-    void Read(const QVariant &config);
+    void Read(const QString &port, const int &bRate);
     void readOut();
 
 signals:

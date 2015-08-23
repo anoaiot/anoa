@@ -35,10 +35,12 @@ QVariant ignserial::info(){
     return json_enc.toVariant();
 }
 
-void ignserial::Read(const QVariant &config){
+void ignserial::Read(const QString &port, const int &bRate){
+    /*qDebug() << config;
     QVariantMap conf = json->jsonParser(config).toVariantMap();
     QString port = conf["port"].toString();
-    int brt = (conf["baudRate"].toInt() ? conf["baudRate"].toInt() : QSerialPort::Baud9600);
+    int brt = (conf["baudRate"].toInt() ? conf["baudRate"].toInt() : QSerialPort::Baud9600);*/
+    int brt = (bRate ? bRate : QSerialPort::Baud9600);
     if(!port.isEmpty()){
         read.setPortName(port);
     }
@@ -57,9 +59,12 @@ void ignserial::Read(const QVariant &config){
 }
 
 void ignserial::readOut(){
-    QByteArray readData;
+    /*QByteArray readData;
     readData.append(read.readAll());
     QTextStream readStream(readData);
-    QString readOutData(readStream.readAll());
-    emit out(readOutData,read.errorString());
+    QString readOutData(readStream.readAll());*/
+    QByteArray readData;
+    readData.append(read.readAll());
+    qDebug()<<QString(readData);
+    emit out(QString(readData),read.errorString());
 }
