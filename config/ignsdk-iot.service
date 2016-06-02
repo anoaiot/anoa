@@ -1,0 +1,14 @@
+[Unit]
+Description=IGNSDK IoT
+After=syslog.target network.target
+
+[Service]
+PIDFile=/var/run/ignsdk-iot.pid
+ExecStart=/usr/bin/ignsdk-iot
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=ignsdk-iot
+
+[Install]
+WantedBy=multi-user.target
